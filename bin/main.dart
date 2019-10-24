@@ -9,7 +9,27 @@
 // Examples
 // allPairs([2, 4, 5, 3], 7) ➞ [[2, 5], [3, 4]]
 /// 2 + 5 = 7, 3 + 4 = 7
+List<List<int>> allPairs(List<int> numList, int x) {
+  List<List<int>> finalList = [];
+  List memoryList = [];
 
+  for (int i = 0; i < numList.length; i++) {
+    List<int> tempList = [];
+    for (int j = i + 1; j < numList.length; j++) {
+      if (!memoryList.contains(numList[i])) {
+        if (numList[i] + numList[j] == x) {
+          tempList.add(numList[i]);
+          tempList.add(numList[j]);
+          memoryList.add(numList[i]);
+          memoryList.add(numList[j]);
+          tempList.sort();
+          finalList.add(tempList);
+        }
+      }
+    }
+  }
+  return finalList;
+}
 
 // Challenge 3
 // Almost Sorted Sequence
@@ -21,5 +41,31 @@
 /// it is perfectly sorted in ascending order.
 // Examples
 // almostSorted([1, 3, 5, 9, 11, 80, 15, 33, 37, 41] ) ➞ true
+bool almostSorted(List list,){
+  if (list.isEmpty) {
+    return false;
+  }
+  if (list.length == 1 || list.length == 2) {
+    return true;
+  }
+  int count = 0;
+  for (int i = 0; i < list.length - 1; i++) {
+    if (list[i] > list[i + 1]) {
+      count++;
+    }
+  }
+  if (count == 0) {
+    return false;
+  }
+  if (count == 1) {
+    return true;
+  } else {
+    return false;
+  }
 
-main() {}
+
+}
+main() {
+  print(allPairs([2, 4, 5, 3], 7));
+  print(almostSorted([1, 3, 5, 9, 11, 80, 15, 33, 37, 41] ));
+}
